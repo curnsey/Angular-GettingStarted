@@ -40,11 +40,18 @@ export class ProductListComponent implements OnInit{
 
     ngOnInit() : void {
       console.log('Initing...');
-      this.productService.getProducts().subscribe(
-        products => {this.products = products; this.filteredProducts = this.performFilter(localStorage.getItem('filter') || '');},
-        error => this.errorMessage = <any>error
-      );
-      console.log(`Products: ${JSON.stringify(this.products)}`);
+      if(localStorage.getItem("products")){
+        this.products = (JSON.parse(localStorage.getItem('products')));
+        this.filteredProducts = this.performFilter(localStorage.getItem('filter') || '');
+        console.log(`Current Cache: ${JSON.stringify(this.products)}`);
+      }
+      else{
+        console.log(`need to update cache...`);
+        this.productService.getProducts().subscribe(
+          products => {this.products = products; this.filteredProducts = this.performFilter(localStorage.getItem('filter') || '');},
+          error => this.errorMessage = <any>error
+        );
+      }
       this._listFilter = localStorage.getItem('filter');
     };
     onNotify(message: string): void{

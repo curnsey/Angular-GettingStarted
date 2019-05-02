@@ -4,11 +4,11 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-2">Filter By:</div>
-            <div class="col-md-4"><input type="text" [(ngModel)]='listFilter'/></div>
+            <div class="">Filter By:&nbsp;</div>
+            <div class=""><input type="text" [(ngModel)]='listFilter'/></div>
         </div>
         <div class="row">
-            <h4 class="col-md-6">Filtering By: "{{listFilter}}"</h4>
+            <h4 class="">Filtering By: "{{listFilter}}"</h4>
         </div>
     </div>
     <div class="table-responsive">
@@ -16,13 +16,14 @@
             <thead>
                 <tr>
                     <th>
-                        <button class="btn btn-primary"
+                        <button class="btn btn-primary btn-sm"
                         (click)='toggleImage()'>{{showImage ? 'Hide' : 'Show'}} Image</button></th>
                     <th>Product</th>
                     <th>Code</th>
                     <th>Available</th>
                     <th>Price</th>
                     <th>Rating</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody *ngFor='let p of filteredProducts;'>
@@ -34,6 +35,7 @@
                     <td>{{p.price | currency}}</td>
                     <!--<td>{{getStarRating(p.starRating)}}</td>-->
                     <td><pm-star [rating]='p.starRating' (notify)='onNotify($event);'></pm-star></td>
+                    <td><a class="btn btn-primary btn-sm text-white" [routerLink]="['/products', p.productId]">Details</a></td>
                 </tr>
             </tbody>
         </table>
